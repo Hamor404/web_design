@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>学生信息注册页面</title>
+    </head>
+    <body>
+        <div>
+            <form>
+                <!-- 201819904：学生姓名、年龄、所属学院 -->
+                
+                
+                <!-- 201819909：专业、账号名称 -->
+                <tr>
+                  <td align="left">专业：</td>
+                  <td><select>
+                          <option value="计算机科学与技术">计算机科学与技术</option>
+                          <option value="软件工程">软件工程</option>
+                          <option value="人工智能">人工智能</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td align="left">账号：</td>
+                  <td><input type="text"></td>
+                </tr>
+                <!-- 201819913：邮箱名称、密码 -->
+                
+                
+                <!-- 201819914：照片、注册按钮 -->
+                <input type="file"><br>
+                <img src="" height="200" alt="Image preview area..." title="preview-img">
+                <br>
+                <input type="submit" value="提交">
+                <script>
+                    var fileInput = document.querySelector('input[type=file]'),
+                    previewImg = document.querySelector('img');
+                    fileInput.addEventListener('change', function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                        reader.addEventListener("load", function () {
+                            previewImg.src = reader.result;
+                        }, false);
+                        // 调用reader.readAsDataURL()方法，把图片转成base64
+                        reader.readAsDataURL(file);
+                    }, false);
+                </script>
+                
+                
+            </form>
+        </div>
+        <div>
+            <!-- 201819926：控制圆形块自由落体弹跳前进效果 -->
+            
+            
+        </div>
+    </body>
+</html>

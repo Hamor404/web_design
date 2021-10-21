@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>学生信息注册页面</title>
+    </head>
+    <body>
+        <div>
+            <form action="#" method="post">
+                <!-- 201819904：学生姓名、年龄、所属学院 -->
+                <label>学生姓名：<input type="text"></label><br>
+                <label>性别：
+                    <input type="radio" value="man">男
+                    <input type="radio" value="woman">女
+                </label><br>
+                <label>年龄：<input type="number"></label><br>
+                <label>所属学院：
+                    <select id="group" value="1">
+                        <option value="1">信息工程学院</option>
+                        <option value="2">外国语学院</option>
+                    </select>
+                </label><br>
+
+                <!-- 201819909：专业、账号名称 -->
+                <label>出生日期：<input type="date"></label><br>
+                <label>个人主页：<input type="url"></label><br>
+                <label>专业：<input type="text"></label><br>
+                <label>爱好：
+                    <input type="checkbox" name="ckbox" value="1">读书
+                    <input type="checkbox" name="ckbox" value="2">音乐
+                    <input type="checkbox" name="ckbox" value="3">运动
+                </label><br>
+
+
+
+                <!-- 201819913：邮箱名称、密码 -->
+                <label>账号名称：<input type="text"></label><br>
+                <label>邮箱名称：<input type="email"></label><br>
+                <label>密码：<input type="password"></label><br>
+                <label>网站评分：<input type="range" min="1" max="10"></label><br>
+                <label>简介：<textarea cols="25" rows="5">请输入简介</textarea></label><br>
+
+
+                <!-- 201819914：照片、注册按钮 -->
+                <input type="file"><br>
+                <img src="" height="200" alt="请上传照片" title="preview-img">
+                <br>
+                <input type="submit" value="提交">
+                <script>
+                    var fileInput = document.querySelector('input[type=file]'),
+                    previewImg = document.querySelector('img');
+                    fileInput.addEventListener('change', function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+                        reader.addEventListener("load", function () {
+                            previewImg.src = reader.result;
+                        }, false);
+                        // 调用reader.readAsDataURL()方法，把图片转成base64
+                        reader.readAsDataURL(file);
+                    }, false);
+                </script>
+
+
+            </form>
+        </div>
+        <div class="canvas-container">
+            <!-- 201819926：控制圆形块自由落体弹跳前进效果 -->
+            <canvas id="ball"></canvas>
+        </div>
+        <script>
+            ;(() => {
+                let ball = {
+                    x: 0,
+                    y: 0,
+                    r: 15,
+                    g: 1,
+                    vx: 5,
+                    vy: 10,
+                    color: 'blue',
+                };
+                const tmp = Object.assign({}, ball);
+                console.log(tmp);
+
+                const canvas = document.querySelector('#ball');
+                canvas.width = 1000;
+                canvas.height = 500;
+                const ctx = canvas.getContext('2d');
+
+                window.addEventListener('load', () => {
+                    requestAnimationFrame(animate);
+                });
+
+                function animate () {
+                    render(ctx);
+                    update();
+                    requestAnimationFrame(animate);
+                }
+
+                function render (ctx) {
+                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                    ctx.beginPath();
+                    ctx.arc(ball.x, ball.y, ball.r, 0 , 2 * Math.PI);
+                    ctx.fillStyle = ball.color;
+                    ctx.fill();
+                }
+
+                function update () {
+                    ball.x += ball.vx;
+                    ball.y += ball.vy;
+                    ball.vy += ball.g;
+
+                    if (ball.y >= canvas.height - ball.r) {
+                        ball.y = canvas.height - ball.r;
+                        ball.vy =- ball.vy * 0.75;  // 到达底部弹起来，*0.5有个缓冲的效果
+                    }
+                    if (ball.x > canvas.width) {
+                        ball = Object.assign(ball, tmp);
+                    }
+                }
+            })()
+        </script>
+    </body>
+</html>
